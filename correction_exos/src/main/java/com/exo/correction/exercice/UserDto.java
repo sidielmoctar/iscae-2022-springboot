@@ -1,14 +1,23 @@
-package com.exo.correction.exercice.dtos;
+package com.exo.correction.exercice;
 
 /**
  * @author Abderrahmane
  */
 
 public class UserDto {
+   private Integer id;
    private String nom;
    private String tel;
    private String email;
    private String password;
+
+   public Integer getId() {
+      return id;
+   }
+
+   public void setId(Integer id) {
+      this.id = id;
+   }
 
    public String getNom() {
       return nom;
