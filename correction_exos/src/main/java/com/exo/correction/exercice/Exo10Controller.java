@@ -1,10 +1,12 @@
 package com.exo.correction.exercice;
 
+import com.exo.correction.data.entity.PersonneEntity;
 import com.exo.correction.exercice.data.UserRepository;
+import com.exo.correction.data.repository.PersonneRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Abderrahmane
@@ -15,14 +17,18 @@ import java.util.Map;
 public class Exo10Controller {
 
     UserRepository userRepository;
-    public Exo10Controller() {
+    private final PersonneRepository personneRepository;
+
+    @Autowired
+    public Exo10Controller(PersonneRepository personneRepository) {
+        this.personneRepository = personneRepository;
         userRepository = new UserRepository();
     }
 
 //    Tous les users
     @GetMapping
-    public List<UserDto> getAll() {
-        return userRepository.getUsers();
+    public List<PersonneEntity> getAll() {
+        return personneRepository.findAll();
     }
 
 //    User by id
