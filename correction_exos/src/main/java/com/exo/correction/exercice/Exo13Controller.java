@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 /**
@@ -56,5 +57,23 @@ public class Exo13Controller {
                 .map(p -> new ObjectMapper().convertValue(p, PersonneDto.class))
                 .collect(Collectors.toList());
         return personneDtos;
+    }
+
+    @GetMapping("/{id}")
+    public PersonneDto byId(@PathVariable("id") Integer id) {
+        try {
+            PersonneEntity personneEntity = personneRepository.findById(id).orElseThrow();
+            PersonneDto personneDto = new PersonneDto();
+            personneDto.setId(personneEntity.getId());
+            personneDto.setNom(personneEntity.getNom());
+            personneDto.setPrenom(personneEntity.getPrenom());
+            personneDto.setTel(personneEntity.getTel());
+            personneDto.setIdGenre(personneEntity.getIdGenre());
+
+            return personneDto;
+        } catch (NoSuchElementException e) {
+            System.out.println("L'élement n'existe pas ======================= ");
+            return null;
+        }
     }
 }

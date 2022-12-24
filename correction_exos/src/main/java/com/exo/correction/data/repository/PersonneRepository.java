@@ -18,12 +18,15 @@ public interface PersonneRepository
     @Query("select new com.exo.correction.exercice.dtos.PersonneDto(" +
             "p.id, p.prenom, p.nom, p.tel, " +
             "p.email, " +
-            "p.idGenre) " +
+            "p.idGenre," +
+            "p.genreByIdGenre.code) " +
             "from PersonneEntity p ")
     List<PersonneDto> findAllCustom();
 
     @Query(value = " select p.id, p.prenom, p.nom, p.tel, " +
-            "p.email, p.id_genre as idGenre from personne p ",
+            "p.email, p.id_genre as idGenre, g.code as codeGenre " +
+            "from personne p join " +
+            " genre g on g.id = p.id_genre ",
             nativeQuery = true)
     List<Map<String, Object>> findAllNative();
 }

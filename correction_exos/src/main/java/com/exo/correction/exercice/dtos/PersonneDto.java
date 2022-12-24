@@ -13,18 +13,20 @@ public class PersonneDto {
    private String tel;
    private String email;
    private int idGenre;
+   private String codeGenre;
 
    public PersonneDto() {
    }
 
    public PersonneDto(int id, String prenom,
                       String nom, String tel,
-                      String email, int idGenre) {
+                      String email, int idGenre, String codeGenre) {
       this.id = id;
       this.prenom = prenom;
       this.nom = nom;
       this.tel = tel;
       this.email = email;
       this.idGenre = idGenre;
+      this.codeGenre = codeGenre;
    }
 }
