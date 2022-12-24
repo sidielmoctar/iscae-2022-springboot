@@ -3,6 +3,7 @@ package com.exo.correction.exercice;
 import com.exo.correction.data.entity.PersonneEntity;
 import com.exo.correction.data.repository.PersonneRepository;
 import com.exo.correction.exercice.dtos.PersonneDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,21 @@ public class Exo13Controller {
 
                     return personneDto;
                 }).collect(Collectors.toList());
+        return personneDtos;
+    }
+
+    @GetMapping("custom")
+    public List<PersonneDto> findAllCustom() {
+        return personneRepository.findAllCustom();
+    }
+
+    @GetMapping("native")
+    public List<PersonneDto> findAllNative() {
+        List<PersonneDto> personneDtos = personneRepository
+                .findAllNative()
+                .stream()
+                .map(p -> new ObjectMapper().convertValue(p, PersonneDto.class))
+                .collect(Collectors.toList());
         return personneDtos;
     }
 }
