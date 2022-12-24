@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @RepositoryRestResource(exported = false)
@@ -29,4 +30,12 @@ public interface PersonneRepository
             " genre g on g.id = p.id_genre ",
             nativeQuery = true)
     List<Map<String, Object>> findAllNative();
+
+    @Query("select p from PersonneEntity p where p.id =:idPersonne ")
+    Optional<PersonneEntity> findByIdCustom(Integer idPersonne);
+
+    @Query("select p from PersonneEntity p where p.nom =:name ")
+    Optional<PersonneEntity> findByNameCustom(String name);
+
+    Optional<PersonneEntity> findByNom(String name);
 }
